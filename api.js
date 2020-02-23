@@ -54,6 +54,10 @@ function dbmigrate (plugins, isModule, options, callback) {
 
     if (typeof options.env === 'string') internals.currentEnv = options.env;
 
+    if (typeof options.table === 'string') {
+      internals.table = options.table;
+    }
+
     if (typeof options.cwd === 'string') internals.cwd = options.cwd;
     else internals.cwd = process.cwd();
   } else internals.cwd = process.cwd();
@@ -99,10 +103,10 @@ dbmigrate.prototype = {
   },
 
   /**
-    * Registers and initializes hooks.
-    *
-    * @returns Promise
-    */
+   * Registers and initializes hooks.
+   *
+   * @returns Promise
+   */
   registerAPIHook: function (callback) {
     var plugins = this.internals.plugins;
     var self = this;
@@ -282,8 +286,8 @@ dbmigrate.prototype = {
   },
 
   /**
-    * Transition migrations to the latest defined protocol.
-    */
+   * Transition migrations to the latest defined protocol.
+   */
   transition: function () {
     load('transition')(this.internals);
   },
